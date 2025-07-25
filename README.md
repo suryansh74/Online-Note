@@ -1,91 +1,50 @@
 # Online-Note
 
-Project Structure
-graphql
-Copy
-Edit
-my-cli-notes/
-│
-├── api.php         # Your PHP backend for CRUD
-├── ielts.sh        # Your Bash script with aliases (instructions for setup)
-└── README.md       # Documentation (goal, setup, usage)
-README.md Example
-Here’s a full README.md you can use:
-
-markdown
-Copy
-Edit
-# CLI Notes Tool
-
-This project lets you **send, search, update, and delete messages** from the command line, storing them on a **remote server (Hostinger)** with a **PHP + MySQL API**.
-
-You can type commands like:
-
-```bash
-send Hello world
-get Hello
-update 3 Updated message here
-delete 4
-All messages are stored in your MySQL database via api.php.
-
-Files
-api.php
-PHP API that handles CRUD operations (send, get, update, delete).
-
-ielts.sh
-Bash script (contains alias functions) so you can use the commands directly in your terminal.
-
-Setup Instructions
-1. Host the PHP API
-Upload api.php to your hosting server (e.g., Hostinger).
-
-Create the messages table in your MySQL database:
-
-sql
-Copy
-Edit
-CREATE TABLE IF NOT EXISTS messages (
+Objective: From your bash/zsh terminal send, get, update, or delete or 1 line message from internet api server
+In your hosting make new site:
+Make new database
+select database and write this query:
+```CREATE TABLE IF NOT EXISTS messages (
     id INT AUTO_INCREMENT PRIMARY KEY,
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-Edit api.php and set the correct MySQL host, user, password, and database name.
+```
+and paste this api.php code add credential for database for password, db_name, and user_name and save file
+Online Setup Completed test your_website_url/api.php working or not if it returns empty array it is working fine
 
-2. Configure the CLI Aliases
-Open your ~/.bashrc:
-
-bash
-Copy
-Edit
+For offline command line setup with aliases:
+```
+nano ~/.zshrc
+```
+*or based on your terminal
+```
 nano ~/.bashrc
-Paste the contents of ielts.sh into your ~/.bashrc (or source it).
-
-Reload your shell:
-
-bash
-Copy
-Edit
-source ~/.bashrc
-Install jq for pretty-printing JSON:
-
-bash
-Copy
-Edit
-sudo apt install jq -y
-Usage Examples
-bash
-Copy
-Edit
-send Hello world this is a test
-get Hello
-update 1 This is a new text for ID 1
-delete 1
-Goal of the Project
-This tool allows you to:
-
-Store text notes from your terminal directly to a remote MySQL database.
-
-Search, update, and delete notes quickly.
-
-Avoid manually crafting curl requests — just use simple commands.
-
+```
+paste code at the bottom and save it
+Offline setup completed
+test it get 
+```
+send Hello World
+```
+it will return success response 
+you can get it will return all message with have that word like
+```
+❯ get Hello
+[
+  {
+    "id": 5,
+    "content": "Hello World",
+    "created_at": "2025-07-25 14:51:37"
+  }
+]
+```
+for update paste id of it
+```
+update 5 "What a Sunny day"
+```
+for delete 
+```
+delete 5
+```
+Finish
