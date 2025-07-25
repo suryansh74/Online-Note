@@ -4,7 +4,8 @@ Objective: From your bash/zsh terminal send, get, update, or delete or 1 line me
 In your hosting make new site:
 Make new database
 select database and write this query:
-```CREATE TABLE IF NOT EXISTS messages (
+```
+CREATE TABLE IF NOT EXISTS messages (
     id INT AUTO_INCREMENT PRIMARY KEY,
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
