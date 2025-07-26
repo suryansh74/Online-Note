@@ -48,4 +48,13 @@ for delete
 ```
 delete 5
 ```
+
+### Additional changes
+```
+get # return latest 5 message
+get -8 # return latest 8 message respect to flag
+get -a # return all message
+getl # return latest message and copied message to clipboard automatically
+copy 22 # it copies content of message 22 data
+``` 
 Finish
