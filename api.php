@@ -6,10 +6,10 @@ error_reporting(E_ALL);
 header('Content-Type: application/json');
 
 // Database credentials
-$host = "mysql.hostinger.com";  // Replace with your actual host
-$db   = "u693965182_note";
-$user = "u693965182_user";      // Your DB user (NOT root)
-$pass = "YourPasswordHere";
+$host = "host_name";  // Replace with your actual host
+$db   = "db_name";
+$user = "user_name";      
+$pass = "your_password";
 
 $dsn = "mysql:host=$host;dbname=$db;charset=utf8mb4";
 $options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
@@ -38,13 +38,30 @@ if ($method === 'POST') {
 }
 
 // READ (GET)
+// READ (GET)
 if ($method === 'GET') {
     $search = $_GET['search'] ?? '';
-    $stmt = $pdo->prepare("SELECT * FROM messages WHERE content LIKE ?");
+    $limit  = isset($_GET['limit']) ? (int)$_GET['limit'] : 5; // Default: last 5
+    $all    = isset($_GET['all']) ? (bool)$_GET['all'] : false;
+
+    // Build base query
+    $sql = "SELECT * FROM messages WHERE content LIKE ?";
+
+    // Add ordering and limits
+    if (!$all) {
+        $sql .= " ORDER BY id DESC LIMIT $limit";
+    } else {
+        $sql .= " ORDER BY id DESC";
+    }
+
+    $stmt = $pdo->prepare($sql);
     $stmt->execute(["%$search%"]);
-    echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($results);
     exit;
 }
+
 
 // UPDATE (PUT)
 if ($method === 'PUT') {
